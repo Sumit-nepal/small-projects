@@ -1,64 +1,97 @@
-let moveList = ["Rock", "Paper","Scissor"];
-function startGame(){
-    let statusDisplay = document.querySelector("#status-head");
-    let buttons = document.querySelectorAll("button");
-    let moveDisplays = document.querySelectorAll(".move-display h2");
-    statusDisplay.textContent = 'Choose!!';
-    for(i = 0; i < buttons.length; i++){
-        buttons[i].textContent = moveList[i];
-    }
-    
-    let r = document.querySelector("#rock-button");
-    r.addEventListener("click",rok);
+let winMsg = 'Victory';
+let loseMsg = 'Defeat';
+let tieMsg = 'Tie';
+let moveList = ['Rock', 'Paper', 'Scissors'];
 
-    function rok(){
-        player = moveList[0];
-        computer = moveList[randomMove()];
-        moveDisplays[0].textContent = "You Played "+player;
-        moveDisplays[1].textContent = "Computer played "+computer;
-        statusDisplay.textContent = calcResult(player,computer);
-    }
-    let p = document.querySelector("#paper-button");
-    p.addEventListener("click",pap);
+let statusDisplay = document.querySelector('#status-head');
+let moveDisplays = document.querySelectorAll('.move-display h2');
+let buttons = document.querySelectorAll('button');
 
-    function pap(){
-        player = moveList[1];
-        computer = moveList[randomMove()];
-        moveDisplays[0].textContent = "You Played "+player;
-        moveDisplays[1].textContent = "Computer played "+computer;
-        statusDisplay.textContent = calcResult(player,computer);
-    }
-    let s = document.querySelector("#scissors-button");
-    s.addEventListener("click",sci);
+function calcResult(move1, move2) {
+    // Player move -> Rock
+    if (move1 === 'Rock') {
+        if (move2 === 'Rock') {
+            return tieMsg;
+        } else if (move2 === 'Paper') {
+            return loseMsg;
+        } else {
+            return winMsg;
+        }
+    } 
 
-    function sci(){
-        player = moveList[2];
-        computer = moveList[randomMove()];
-        moveDisplays[0].textContent = "You Played "+player;
-        moveDisplays[1].textContent = "Computer played "+computer;
-        statusDisplay.textContent = calcResult(player,computer);
+    // Player move -> Paper
+    if (move1 === 'Paper') {
+        if (move2 === 'Rock') {
+            return winMsg;
+        } else if (move2 === 'Paper') {
+            return tieMsg;
+        } else {
+            return loseMsg;
+        }
+    }
+
+    // Player move -> Scissors
+    if (move1 === 'Scissors') {
+        if (move2 === 'Rock') {
+            return loseMsg;
+        } else if (move2 === 'Paper') {
+            return winMsg;
+        } else {
+            return tieMsg;
+        }
     }
 }
+
+/*
+ * @return {Number}   random number between 0 and 2
+ */
+
+function randomMove() {
+  return Math.floor(Math.random() * 3);
+}
+
+/**
+ * Displays start state of game
+ */
+
+function startGame() {
+    statusDisplay.textContent =  'Choose!';
+   
+    buttons.forEach((button, index) => {
+        
+        button.textContent = moveList[index];
+        button.style.display = 'inline-block';
+        button.addEventListener('click', endGame)
+    })
+
+    moveDisplays.forEach((move) => {
+        move.style.display = 'none';
+    })
+}
+
+function endGame(event) {
+    const computerMove = moveList[randomMove()];
+    const playerMove = event.target.textContent;
+
+    moveDisplays.forEach(move => {
+        move.style.display = 'inline-block';
+    })
+
+    moveDisplays[0].textContent = `You chose ${playerMove}`; 
+    moveDisplays[1].textContent = `Computer chose ${computerMove}`; 
+
+    const result = calcResult(playerMove, computerMove);
+
+    statusDisplay.textContent = result;
+
+    buttons.forEach(button => {
+        button.style.display = 'none';
+    })
+
+    buttons[1].style.display = 'inline-block';
+    buttons[1].textContent = 'Play Again';
+    buttons[1].removeEventListener('click', endGame)
+    buttons[1].addEventListener('click', startGame)
+}
+
 startGame();
-
-function calcResult(move1, move2){
-    if (move1==move2){
-        return "Tie"
-    }
-    if (move1==moveList[0] && move2 ==moveList[2]){
-        return " You Win"
-    }
-    if (move1==moveList[1] && move2 ==moveList[0]){
-        return " You Win"
-    }
-    if (move1==moveList[2] && move2 ==moveList[1]){
-        return "You Win"
-    }
-    else{
-        return "You Loose"
-    }
-}
-function randomMove(){
-    let random = Math.floor(Math.random() * 3);
-    return random;
-}

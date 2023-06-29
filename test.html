@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var greetings = (name) => {
+            alert("hello "+name);
+        }
+
+        var processUserInput = (callback) => {
+            setTimeout(() => {
+                var name = prompt("Enter your name: ")
+                callback(name)
+            },  1000)
+        }
+        processUserInput(greetings)
+
+        var promise = new Promise(function(resolve, reject) {
+            setTimeout(function(){
+                const x = "abc"
+                const y = "abc"
+
+                if (x === y) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            }, 1000)
+        })
+
+        promise. 
+            then (function (){
+                console.log("Sucess");
+            }).
+            catch (function (){
+                console.log("Some error has occured")
+            })
+
+            fetch('https://dummyjson.com/products/1')
+            .then(function(response){
+                console.log(response.json())
+            })
+            .catch(function(){
+                console.log("some error occured")
+            })
+
+        async function fetchData(){
+            const response = await fetch('https://dummyjson.com/products/1');
+            const data = await response.json();
+            console.log(data)
+            var brandvar = document.getElementById("brand")
+            brandvar.textContent = data.brand;
+
+            var categoryvar = document.getElementById("category")
+            categoryvar.textContent = data.category;
+
+            var description = document.getElementById("description")
+            description.textContent = data.description;
+
+            var discount = document.getElementById("discount")
+            discount.textContent = data.discount;
+
+            var idvar = document.getElementById("id")
+            idvar.textContent = data.id;
+
+            var image = document.getElementById("image")
+            image.src = data.images[1];
+
+            var pricevar = document.getElementById("price")
+            pricevar.textContent = data.price;
+
+            var ratingvar = document.getElementById("rating")
+            ratingvar.textContent = data.rating;
+
+            var stockvar = document.getElementById("stock")
+            stockvar.textContent = data.stock;
+
+            var titlevar = document.getElementById("title")
+            titlevar.textContent = data.title;
+
+        }
+        fetchData()
+    </script>
+
+    <h1 id="brand"></h1>
+    <h1 id="category"></h1>
+    <p id="description"></p>
+    <h1 id="discount"></h1>
+    <h1 id="id"></h1>
+    <image id="image"></image>
+    <h1 id="price"></h1>
+    <h1 id="rating"></h1>
+    <h1 id="stock"></h1>
+    <h2 id="title"></h2>
+</body>
+</html>
