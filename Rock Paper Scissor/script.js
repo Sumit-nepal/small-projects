@@ -69,6 +69,8 @@ function startGame() {
     })
 }
 
+
+
 function endGame(event) {
     const computerMove = moveList[randomMove()];
     const playerMove = event.target.textContent;

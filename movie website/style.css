@@ -1,0 +1,31 @@
+body {
+    background-image: linear-gradient(to right, rgb(2, 128, 201), rgb(77, 139, 180));
+    overflow-y: hidden;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-container input[type="text"] {
+    width: 300px;
+    padding: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .searchbar button {
+    padding: 8px 12px;
+    margin-left: 8px;
+    background: #dcc4c4;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
